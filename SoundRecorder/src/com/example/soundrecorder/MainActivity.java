@@ -25,6 +25,16 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
      */
     private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
 
+    /**
+     * The position in the navigation list for "record"
+     */
+    private static final int NAVIGATION_POSITION_RECORD = 0;
+    
+    /**
+     * The position in the navigation list for "playback"
+     */
+    private static final int NAVIGATION_POSITION_PLAYBACK = 1;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
