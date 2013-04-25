@@ -7,6 +7,7 @@ import android.content.Context;
 import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NavUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -98,16 +99,23 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
     
     @Override
     public boolean onNavigationItemSelected(int position, long id) {
-        // When the given dropdown item is selected, show its contents in the
-        // container view.
-        Fragment fragment = new DummySectionFragment();
-        Bundle args = new Bundle();
-        args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, position + 1);
-        fragment.setArguments(args);
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, fragment)
-                .commit();
-        return true;
+    	// Based on which navigation item is selected, display controls for
+    	// recording or playback
+    	Fragment mediaFragment;
+    	if (position == NAVIGATION_POSITION_RECORD) {
+    		mediaFragment = new RecordFragment();
+    	}
+    	else if (position == NAVIGATION_POSITION_PLAYBACK) {
+    		mediaFragment = new PlayFragment();
+    	}
+    	else {
+    		return false;
+    	}
+    	
+    	FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+    	transaction.replace(R.id.fragment_container, mediaFragment);
+    	transaction.commit();
+    	return true;
     }
 
     /**
